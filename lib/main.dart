@@ -3,10 +3,12 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,12 +16,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: GeoInfoScreen(),
+      home:const GeoInfoScreen(),
     );
   }
 }
 
 class GeoInfoScreen extends StatefulWidget {
+  const GeoInfoScreen({super.key});
+
   @override
   _GeoInfoScreenState createState() => _GeoInfoScreenState();
 }
@@ -29,6 +33,10 @@ class _GeoInfoScreenState extends State<GeoInfoScreen> {
   String? region;
   String? country;
   String? ip;
+  String? loc;
+  String? org;
+  String? postal;
+  String? timezone;
 
   @override
   void initState() {
@@ -47,6 +55,10 @@ class _GeoInfoScreenState extends State<GeoInfoScreen> {
         city = data['city'];
         region = data['region'];
         country = data['country'];
+        loc = data['loc'];
+        org = data['org'];
+        postal = data['postal'];
+        timezone = data['timezone'];
       });
     } else {
       print('Failed to load geolocation data');
@@ -57,7 +69,7 @@ class _GeoInfoScreenState extends State<GeoInfoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -68,7 +80,7 @@ class _GeoInfoScreenState extends State<GeoInfoScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'IPinfo',
                 style: TextStyle(
                   fontSize: 24,
@@ -76,11 +88,10 @@ class _GeoInfoScreenState extends State<GeoInfoScreen> {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Container(
                 width: 332,
-                height: 168,
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(12),
@@ -93,6 +104,10 @@ class _GeoInfoScreenState extends State<GeoInfoScreen> {
                     buildInfoRow('City', city ?? 'Loading...'),
                     buildInfoRow('Region', region ?? 'Loading...'),
                     buildInfoRow('Country', country ?? 'Loading...'),
+                    buildInfoRow('Location', loc ?? 'Loading...'),
+                    buildInfoRow('Origin', org ?? 'Loading...'),
+                    buildInfoRow('Postal', postal ?? 'Loading...'),
+                    buildInfoRow('Timezone', timezone ?? 'Loading...'),
                   ],
                 ),
               ),
@@ -110,7 +125,7 @@ class _GeoInfoScreenState extends State<GeoInfoScreen> {
         children: [
           Text(
             '$label : ',
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -118,7 +133,7 @@ class _GeoInfoScreenState extends State<GeoInfoScreen> {
           ),
           Text(
             value,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
             ),
